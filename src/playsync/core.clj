@@ -5,9 +5,10 @@
                      alts! alts!! timeout]])
   (:gen-class))
 
+(def echo-chan (chan))
 
 (defn -main
   [& args]
-  (def echo-chan (chan))
   (go (println (<! echo-chan)))
-  (>!! echo-chan "ping"))
+  (>!! echo-chan "ping")
+  (go (>! echo-chan "ping")))
